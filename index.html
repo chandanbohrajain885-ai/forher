@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Inera SafeHer - Women Safety Prediction System. Check if a place is safe based on place type, time, weather and surroundings." />
+  <meta name="theme-color" content="#6d28d9" />
+  <title>Inera SafeHer | Women Safety Prediction System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">🛡️</span>
+      <div>
+        <h1>Inera SafeHer</h1>
+        <p>Women Safety Prediction System</p>
+      </div>
+    </div>
+    <a class="sos-btn" href="tel:112" aria-label="Call 112 emergency">SOS 112</a>
+  </header>
+
+  <main class="container">
+    <!-- Emergency strip -->
+    <section class="card emergency" aria-labelledby="emg-title">
+      <h2 id="emg-title">🚨 Emergency Helplines (India)</h2>
+      <div class="emg-grid" id="emgGrid"></div>
+      <div class="emg-actions">
+        <button type="button" class="btn btn-danger" id="shareLocBtn">📍 Share My Live Location</button>
+        <span class="small" id="shareStatus"></span>
+      </div>
+    </section>
+
+    <div class="layout">
+      <!-- Input form -->
+      <section class="card" aria-labelledby="form-title">
+        <h2 id="form-title">Check a Place</h2>
+        <form id="safetyForm" novalidate>
+          <label for="placeName">Place name (optional)</label>
+          <input type="text" id="placeName" maxlength="80" placeholder="e.g. VTU Campus, Belagavi Bus Stand" />
+
+          <label for="placeType">Type of place</label>
+          <select id="placeType" required></select>
+
+          <label for="timeOfDay">Time of day</label>
+          <div class="row">
+            <select id="timeOfDay" required></select>
+            <button type="button" class="btn btn-light" id="nowBtn" title="Use current time">🕒 Now</button>
+          </div>
+
+          <label for="weather">Weather condition</label>
+          <div class="row">
+            <select id="weather" required></select>
+            <button type="button" class="btn btn-light" id="liveWeatherBtn" title="Detect weather at my location">🌦️ Live</button>
+          </div>
+          <span class="small" id="weatherStatus"></span>
+
+          <label for="crowd">Crowd around</label>
+          <select id="crowd" required></select>
+
+          <label for="lighting">Street lighting</label>
+          <select id="lighting" required></select>
+
+          <label for="company">Are you travelling</label>
+          <select id="company" required></select>
+
+          <fieldset class="checks">
+            <legend>Safety features present</legend>
+            <label class="check"><input type="checkbox" id="cctv" /> CCTV cameras</label>
+            <label class="check"><input type="checkbox" id="security" /> Security guard / police nearby</label>
+            <label class="check"><input type="checkbox" id="transport" /> Public transport / cabs available</label>
+            <label class="check"><input type="checkbox" id="phone" /> Phone charged with mobile data</label>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary btn-block">🔍 Predict Safety</button>
+        </form>
+      </section>
+
+      <!-- Result -->
+      <section class="card result" id="resultCard" aria-live="polite">
+        <div class="placeholder" id="placeholder">
+          <div class="big-icon" aria-hidden="true">🛡️</div>
+          <h2>Your safety result will appear here</h2>
+          <p>Fill in the details and tap <strong>Predict Safety</strong>.</p>
+        </div>
+
+        <div id="resultContent" class="hidden">
+          <div class="verdict" id="verdict">
+            <div class="verdict-icon" id="verdictIcon"></div>
+            <div>
+              <div class="verdict-label" id="verdictLabel"></div>
+              <div class="verdict-place" id="verdictPlace"></div>
+            </div>
+          </div>
+
+          <div class="meter" aria-label="Risk meter">
+            <div class="meter-fill" id="meterFill"></div>
+          </div>
+          <div class="meter-text"><span>Safety score: <strong id="safetyScore">0</strong>/100</span><span>Risk: <strong id="riskScore">0</strong>%</span></div>
+
+          <h3>💡 Why this result (hints)</h3>
+          <ul class="hints" id="hintList"></ul>
+
+          <h3>✅ What you should do now</h3>
+          <ul class="tips" id="tipList"></ul>
+
+          <div id="altBlock" class="hidden">
+            <h3>🧭 Safer alternatives near you</h3>
+            <p class="small">Move towards one of these. Links open Google Maps and search near your location.</p>
+            <div class="alt-grid" id="altGrid"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="disclaimer">
+      ⚠️ This is a rule-based risk estimate from the conditions you enter. It does not use live crime data and cannot guarantee safety.
+      If you feel unsafe, trust your instinct and call <a href="tel:112">112</a> immediately.
+    </p>
+  </main>
+
+  <footer class="footer">
+    © <span id="year"></span> INERA GROUP (Inera Software Pvt. Ltd.) · Inera SafeHer
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
